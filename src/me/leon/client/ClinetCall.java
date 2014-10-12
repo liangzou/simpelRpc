@@ -8,10 +8,13 @@ import me.leon.service.CodingService;
  * @date 2014-10-11
  * @filaname ClinetCall.java
  */
-public class ClinetCall {
-	public static void start(String ip,int port)
+//获取远程的服务
+public class ClinetCall
+{
+	public static void start(String ip, int port)
 	{
-		CodingService service = RpcUtil.getRemoteService(CodingService.class, ip, port);
+		CodingService service = RpcUtil.getRemoteService(CodingService.class,
+				ip, port);
 		service.printHelloWorld("leon");
 	}
 }

@@ -11,28 +11,31 @@ import me.leon.service.Impl.CodingServiceImpl;
  * @date 2014-10-12
  * @filaname Test.java
  */
-public class Test {
-	
-	public static void main(String[] args) {
+public class Test
+{
+	public static void main(String[] args)
+	{
 		// TODO Auto-generated method stub
-		//首先暴露服务
-		new Thread(){
+		// 首先暴露服务
+		new Thread()
+		{
 			public void run()
 			{
 				ServiceProvider.provider(new CodingServiceImpl(), 8091);
 			}
 		}.start();
-		
-		try {
+
+		try
+		{
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
+		} catch (InterruptedException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		ClinetCall.start("127.0.0.1", 8091);
-		
-		
+
 	}
 
 }

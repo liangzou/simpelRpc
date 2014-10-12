@@ -5,7 +5,7 @@ package me.leon.service;
  * @date 2014-10-11
  * @filaname CodingService.java
  */
-public interface CodingService {
-
+public interface CodingService
+{
 	public void printHelloWorld(String ts);
 }

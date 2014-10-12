@@ -7,11 +7,13 @@ import me.leon.service.CodingService;
  * @date 2014-10-11
  * @filaname CodingServiceImpl.java
  */
-public class CodingServiceImpl implements CodingService {
+public class CodingServiceImpl implements CodingService
+{
 
-	public void printHelloWorld(String ts) {
+	public void printHelloWorld(String ts)
+	{
 		// TODO Auto-generated method stub
-		System.out.println("HelloWorld!"+ts);
+		System.out.println("HelloWorld!" + ts);
 	}
 
 }
