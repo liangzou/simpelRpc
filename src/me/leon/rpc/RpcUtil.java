@@ -19,7 +19,7 @@ import java.net.Socket;
  * */
 public class RpcUtil
 {
-	public static void exporeService(final Object interfaceNames, int port)
+	public static <T> void exporeService(final T interfaceNames, int port)
 	{
 		if (interfaceNames == null || port < 0)
 		{
