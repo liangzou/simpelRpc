@@ -9,7 +9,7 @@ import me.leon.rpc.RpcUtil;
 public class ServiceProvider {
 	public static void provider(Object service,int port)
 	{
-		System.out.println(service.getClass());
+		//System.out.println(service.getClass());
 		RpcUtil.exporeService(service, port);
 	}
 }

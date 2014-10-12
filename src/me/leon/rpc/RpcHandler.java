@@ -11,6 +11,10 @@ import java.net.Socket;
  * @date 2014-10-11
  * @filaname RpcHandler.java
  */
+/**
+ * invocationHander的实现，具体的方法的执行时通过远程访问服务提供方，
+ *  并将执行的结果返回
+ **/
 public class RpcHandler implements InvocationHandler {
 
 	private String ip;
@@ -26,15 +30,37 @@ public class RpcHandler implements InvocationHandler {
 			throws Throwable {
 		// TODO Auto-generated method stub
 		Socket socket = new Socket(ip,port);
-		ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-		oos.writeUTF(method.getName());
-		oos.writeObject(method.getParameterTypes());
-		oos.writeObject(args);
-		oos.flush();
-		
-		ObjectInputStream ois =new ObjectInputStream(socket.getInputStream());
-		Object result = ois.readObject();
-		ois.close();
+		ObjectInputStream ois = null;
+		ObjectOutputStream oos = null;
+		Object result = null;
+		try
+		{
+			try
+			{
+				oos = new ObjectOutputStream(socket.getOutputStream());
+				oos.writeUTF(method.getName());
+				oos.writeObject(method.getParameterTypes());
+				oos.writeObject(args);
+				oos.flush();
+				try
+				{
+				    ois =new ObjectInputStream(socket.getInputStream());
+					result = ois.readObject();
+				}
+				finally
+				{
+					ois.close();
+				}
+			}
+			finally
+			{
+				oos.close();
+			}
+		}
+		finally
+		{
+			socket.close();
+		}
 		return result;
 	}
 
