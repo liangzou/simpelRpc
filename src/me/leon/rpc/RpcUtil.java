@@ -41,51 +41,51 @@ public class RpcUtil {
 				final Socket socket = server.accept();
 				new Thread(){
 					public void run()
-				    {
-							try{
-							ObjectInputStream ois =null;
-							ObjectOutputStream oos = null;
-							try{
+			    {
+						try{
+						ObjectInputStream ois =null;
+						ObjectOutputStream oos = null;
+						try{
+							try 
+							{
+							    ois = new ObjectInputStream(socket.getInputStream());
+								String methodName = ois.readUTF();
+								Class<?>[] parameterTypes = (Class<?>[])ois.readObject();  
+								Object[] arguments = (Object[])ois.readObject();  
 								try 
 								{
-								    ois = new ObjectInputStream(socket.getInputStream());
-									String methodName = ois.readUTF();
-									Class<?>[] parameterTypes = (Class<?>[])ois.readObject();  
-									Object[] arguments = (Object[])ois.readObject();  
-									try 
-									{
-									//	System.out.println(interfaceNames.getClass().getName());
-										Method method = interfaceNames.getClass().getMethod(methodName, parameterTypes); 								
-										Object result = method.invoke(interfaceNames, arguments);
-										oos = new ObjectOutputStream(socket.getOutputStream());
-										oos.writeObject(result);
-									}
-								  
-								   finally
-								   {
-										oos.close();
-								   }
+								//	System.out.println(interfaceNames.getClass().getName());
+									Method method = interfaceNames.getClass().getMethod(methodName, parameterTypes); 								
+									Object result = method.invoke(interfaceNames, arguments);
+									oos = new ObjectOutputStream(socket.getOutputStream());
+									oos.writeObject(result);
 								}
-								 catch (Exception e) 
-								 {
-									e.printStackTrace();
-								 }
-								finally
-								{
-										ois.close();
-							    }
-						}
-						finally
-						{
-							socket.close();
-						}
-					  }
-					
-						catch(IOException e)
-						{
-							e.printStackTrace();
-						}
-	     		  }		
+							  
+							   finally
+							   {
+									oos.close();
+							   }
+							}
+							 catch (Exception e) 
+							 {
+								e.printStackTrace();
+							 }
+							finally
+							{
+									ois.close();
+						    }
+					}
+					finally
+					{
+						socket.close();
+					}
+				  }
+				
+					catch(IOException e)
+					{
+						e.printStackTrace();
+					}
+     		  }		
 				}.start();
 			  } 
 			  catch (IOException e)
